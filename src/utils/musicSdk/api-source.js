@@ -47,7 +47,11 @@ for (const api of apiSourceInfo) {
 const getAPI = source => apiList[`${settingState.setting['common.apiSource']}_api_${source}`]
 
 const apis = source => {
-  if (/^user_api/.test(settingState.setting['common.apiSource'])) return global.lx.apis[source]
+  if (/^user_api/.test(settingState.setting['common.apiSource'])) {
+    const api = global.lx.apis?.[source]
+    if (!api) throw new Error(`当前音源脚本不支持「${source}」源的取链`)
+    return api
+  }
   // 二改版：bilibili 是「内置搜索 + 取链走用户导入的脚本」的混合源。
   // 它的取链实现不在软件里（为了规避版权风险），而是由用户导入的自定义源脚本
   // 通过 global.lx.apis 提供。所以这里对 bilibili 特殊处理：优先读脚本，脚本没导入才报错。

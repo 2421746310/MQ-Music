@@ -149,13 +149,15 @@ globalThis.lx_setup = (key, id, name, description, version, author, homepage, ra
   const events = {
     request: null,
   }
-  const allSources = ['kw', 'kg', 'tx', 'wy', 'mg', 'local']
+  // 二改版：新增 bilibili 为合法的自定义源（取链由用户导入的脚本提供，搜索内置）
+  const allSources = ['kw', 'kg', 'tx', 'wy', 'mg', 'bilibili', 'local']
   const supportQualitys = {
     kw: ['128k', '320k', 'flac', 'flac24bit'],
     kg: ['128k', '320k', 'flac', 'flac24bit'],
     tx: ['128k', '320k', 'flac', 'flac24bit'],
     wy: ['128k', '320k', 'flac', 'flac24bit'],
     mg: ['128k', '320k', 'flac', 'flac24bit'],
+    bilibili: ['128k', '320k', 'flac', 'flac24bit'],
     local: [],
   }
   const supportActions = {
@@ -164,6 +166,7 @@ globalThis.lx_setup = (key, id, name, description, version, author, homepage, ra
     tx: ['musicUrl'],
     wy: ['musicUrl'],
     mg: ['musicUrl'],
+    bilibili: ['musicUrl'],
     xm: ['musicUrl'],
     local: ['musicUrl', 'lyric', 'pic'],
   }

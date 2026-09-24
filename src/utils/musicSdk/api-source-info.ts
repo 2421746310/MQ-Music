@@ -4,23 +4,16 @@
 // 只留下这个登记表；用户在 设置 -> 音源 里选中的条目会决定
 // global.lx.qualityList（也就是「哪些歌曲来源被认为是可播放的」）。
 //
-// 哔哩哔哩音源只保留「搜索」实现（见 utils/musicSdk/bilibili/），
-// 「取链」由用户导入的自定义源脚本提供，本仓库不内置取链以规避版权风险。
+// 本二改版为了规避版权风险，不内置任何取链实现；音源由用户通过
+// 「设置 -> 音源 -> 自定义源」自行导入脚本（如 bilibili-lx.js）。
+// 注意：bilibili 的「搜索」仍是内置的（见 utils/musicSdk/bilibili/musicSearch.js），
+// 但它不出现在这个可选源列表里 —— 用户导入取链脚本后即可播放搜到的 B 站视频。
 
 const sources: Array<{
   id: string
   name: string
   disabled: boolean
   supportQualitys: Partial<Record<LX.OnlineSource, LX.Quality[]>>
-}> = [
-  {
-    id: 'bilibili',
-    name: '哔哩哔哩',
-    disabled: false,
-    supportQualitys: {
-      bilibili: ['128k', '320k', 'flac', 'flac24bit'],
-    },
-  },
-]
+}> = []
 
 export default sources
