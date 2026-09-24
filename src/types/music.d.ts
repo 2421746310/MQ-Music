@@ -82,8 +82,8 @@ declare namespace LX {
       meta: MusicInfoMeta_mg
     }
 
-    // 二改版新增的内置音源：哔哩哔哩。
-    // bvid 存在 meta.songId 里（与其它源的 songmid 同位置），取链时按它定位视频。
+    // 二改版新增的内置音源：哔哩哔哩（只提供搜索，取链走自定义源脚本）。
+    // bvid 存在 meta.songId 里（与其它源的 songmid 同位置）。
     interface MusicInfo_bilibili extends MusicInfoBase<'bilibili'> {
       meta: MusicInfoMeta_online
     }

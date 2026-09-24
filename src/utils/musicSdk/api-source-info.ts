@@ -4,8 +4,8 @@
 // 只留下这个登记表；用户在 设置 -> 音源 里选中的条目会决定
 // global.lx.qualityList（也就是「哪些歌曲来源被认为是可播放的」）。
 //
-// 哔哩哔哩音源是内置实现（见 utils/musicSdk/bilibili/），不依赖任何外部脚本，
-// 所以在这里登记。选中它之后 qualityList.bilibili 会被自动填好。
+// 哔哩哔哩音源只保留「搜索」实现（见 utils/musicSdk/bilibili/），
+// 「取链」由用户导入的自定义源脚本提供，本仓库不内置取链以规避版权风险。
 
 const sources: Array<{
   id: string

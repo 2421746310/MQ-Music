@@ -146,7 +146,7 @@ export const DEFAULT_SETTING = {
 
   search: {
     temp_source: 'kw' as LX.OnlineSource,
-    // 二改版：默认选中的音源改为哔哩哔哩（别名「小站音乐」），而不是聚合搜索(all)。
+    // 二改版：默认选中的音源为哔哩哔哩（别名「小站音乐」）
     source: 'bilibili' as LX.OnlineSource | 'all',
     type: 'music' as 'music' | 'songlist',
   },

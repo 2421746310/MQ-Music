@@ -4,7 +4,8 @@ import { defaultUrl } from '@/config'
 // import { action as playerAction } from '@/store/modules/player'
 import settingState from '@/store/setting/state'
 import playerState from '@/store/player/state'
-// 哔哩哔哩内置源的媒体请求要求（UA 不能含 Android + 必须带 Referer）
+// 哔哩哔哩媒体流的请求头要求（UA 不含 Android + 必须带 Referer）。
+// 注意：这里只是「设置请求头」，不含任何取链/版权内容，故保留在软件里。
 import { UA_MEDIA as BILIBILI_UA_MEDIA, buildReferer as buildBilibiliReferer } from '@/utils/musicSdk/bilibili/config'
 
 
@@ -41,16 +42,10 @@ const getCurrentFullLyric = (targetId: string | null) => {
     : undefined
 }
 
-// 部分音源的 CDN 有防盗链，需要播放器本身把请求头带齐：
-//   - 洛雪的取链链路（core/music/utils.ts 只解构 { url, type }）会把请求头丢掉，
-//     所以没法从 getMusicUrl 的返回值传出来；
-//   - 播放器原本只给了 userAgent（且是写死的 Pixel 3，UA 里含 Android）。
-// RNTP 支持 per-track 的 userAgent 与 headers
-// （Android 侧 Track.java -> setDefaultUserAgent / setDefaultRequestProperties），
-// 所以在这里按音源覆盖掉，让哔哩哔哩的内置源能直接播 DASH 原声。
-//
-// 哔哩哔哩的规则（2026-09-23 实测，见 test/probe-ua-matrix.mjs）：
-//   upos-*.bilivideo.com 要求 ① 带 Referer 且 ② UA 不含 Android，两条缺一即 403。
+// 对 bilibili 音源注入播放器请求头（UA + Referer）。
+// 这是「设置请求头」，不是取链；取链由用户导入的自定义源脚本负责。
+// 播放器默认 UA 是 Pixel 3（含 Android），B 站 upos 会因此 403，
+// 所以这里换成不含 Android 的 UA 并带上 Referer，让脚本返回的直链能正常播放。
 const getTrackOverride = (musicInfo: LX.Player.PlayMusic): Pick<LX.Player.Track, 'userAgent' | 'headers'> => {
   const mInfo: LX.Music.MusicInfo = 'progress' in musicInfo ? musicInfo.metadata.musicInfo : musicInfo
   if (mInfo.source !== 'bilibili') return {}

@@ -69,8 +69,7 @@ export const searchMusic = async({ name, singer, source: s, limit = 25 }) => {
   const trimStr = str => typeof str == 'string' ? str.trim() : str
   const musicName = trimStr(name)
   const tasks = []
-  // bilibili 不参与「自动切换到其他音源」：它的条目是视频标题而非歌曲名，
-  // 用歌名去比对会误命中，反而把用户正在听的歌换掉。
+  // 「自动切换到其他音源」排除 xm（无搜索实现）；bilibili 也排除（视频标题非歌曲名，易误命中）
   const excludeSource = ['xm', 'bilibili']
   for (const source of sources.sources) {
     if (!sources[source.id].musicSearch || source.id == s || excludeSource.includes(source.id)) continue

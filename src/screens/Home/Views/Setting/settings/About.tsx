@@ -12,7 +12,8 @@ import Text from '@/components/common/Text'
 import { showPactModal } from '@/core/common'
 
 // 二改版信息（MingQiu）
-// 说明：不在此处展示任何域名（下载/更新均由服务端动态下发，用户无需关心地址）。
+// 项目地址（GitHub 仓库）
+const PROJECT_REPO = 'https://github.com/2421746310/MQ-Music'
 // 上游项目
 const UPSTREAM_REPO = 'https://github.com/lyswhut/lx-music-mobile'
 const UPSTREAM_RELEASE = 'https://github.com/lyswhut/lx-music-mobile/releases'
@@ -22,6 +23,9 @@ const UPSTREAM_LICENSE = 'https://github.com/lyswhut/lx-music-mobile#%E9%A1%B9%E
 export default memo(() => {
   const theme = useTheme()
   const t = useI18n()
+  const openProjectRepo = () => {
+    void openUrl(PROJECT_REPO)
+  }
   const openUpstreamRepo = () => {
     void openUrl(UPSTREAM_REPO)
   }
@@ -51,11 +55,17 @@ export default memo(() => {
       <View style={styles.part}>
         <Text style={styles.text}>本版本（<Text style={styles.boldText}>MQ Music</Text>）是基于开源项目 </Text>
         <Text style={styles.boldText}>LX Music（洛雪音乐）</Text>
-        <Text style={styles.text}> 的二次修改版本，已内置「哔哩哔哩」音源，开箱即用。</Text>
+        <Text style={styles.text}> 的二次修改版本。</Text>
       </View>
       <View style={styles.part}>
         <Text style={styles.text}>二改作者：</Text>
         <Text style={styles.boldText}>MingQiu</Text>
+      </View>
+      <View style={styles.part}>
+        <Text style={styles.text}>本项目地址：</Text>
+        <TouchableOpacity onPress={openProjectRepo}>
+          <Text style={textLinkStyle}>https://github.com/2421746310/MQ-Music</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.part}>
         <Text style={styles.text}>原版项目（未内置任何音源，需自行导入）源码地址：</Text>
